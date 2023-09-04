@@ -26,11 +26,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             switch result {
             case .success(let cryptos):
                 self.cryptoList = cryptos
-                
                 // UrlSession kendisi arka planda global thread'da atadigi icin hatanin giderilmesi icin main'e almamiz lazim
-                self.tableView.reloadData()
+                // Main thread kullanici arayuzu ile etkilesim yapma anlamina gelir
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                
             case .failure(let failure):
-                print(failure)
+            print(failure)
             }
         }
         
