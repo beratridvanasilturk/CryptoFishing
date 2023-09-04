@@ -36,7 +36,7 @@ class WebService {
                     // cryptoList optionaldan kurtarmak icin if let yapisini kullanabiliriz
                     if let cryptoList = cryptoList {
                         completionHandler(.success(cryptoList))
-                        // eger bir onceki if let blogu calismazsa veri gelmesine ragmen ben bu datayi alamadim demektir, yine completionHandler cagirarak fail durumunu verip parsing'de sorun yasadigimizi belirtebiliriz
+                        // eger bir onceki if let blogu calismazsa veri gelmesine ragmen ben bu  datayi alamadim demektir, yine completionHandler cagirarak fail durumunu verip parsing'de sorun yasadigimizi belirtebiliriz
                     } else {
                         completionHandler(.failure(.parsingError))
                     }
