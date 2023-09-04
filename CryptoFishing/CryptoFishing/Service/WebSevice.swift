@@ -16,7 +16,7 @@ class WebService {
     
     // Islem bittikten sonra ne yapilmasi gerektigini comletion handler sayesinde duzenleriz
     // Escaping ile func icerisindeki islemler bittikten sonra calistirilacagi anlasilir
-    // Result yapisi bize completion edilecek seyin success or fail durumlarini degerlendirebilmemiz icin hazir bir iceriktir. [result'a tikla oku :)]
+    // Result yapisi bize completion edilecek seyin success or fail durumlarini degerlendirebilmemiz icin hazir bir iceriktir. [Detayli bilgi icin result'a tikla documents oku :)]
     // Result icerisinde ne dondurulecekse <> icerisine yazmamiz gerekiyor
     // Currency'i bir array seklinde yazmamizin sebebi url 'deki json formatindan swift'e cevirdigimiz verinin bir dizi icerisinde yer almasindan dolayidir. Yani liste icerisindeydi json verilerimiz biz de onu belirttik.
     func downloadCurrenties(url: URL, completionHandler: @escaping (Result<[Crypto], CryptoError>) -> Void ) {
@@ -44,8 +44,5 @@ class WebService {
             }
         // UrlSession bitiminde resume etmezsek hicbir zaman calismaz unutmamamiz gereken bir durumdur
         }.resume()
-        
     }
-    
-    
 }

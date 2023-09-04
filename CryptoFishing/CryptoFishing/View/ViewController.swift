@@ -33,7 +33,6 @@ class ViewController: UIViewController, UITableViewDelegate {
         
         setupBindings()
         cryptoViewModel.requestData()
-
     }
     
     private func setupBindings() {
@@ -50,7 +49,6 @@ class ViewController: UIViewController, UITableViewDelegate {
                 print(errorString)
             }.disposed(by: disposeBag)
             // dipose bag'e atarak ramda yer tutmamasini saglariz
-
         
 //        cryptoViewModel
 //            .cryptos
@@ -65,21 +63,18 @@ class ViewController: UIViewController, UITableViewDelegate {
         
         // Binding : Cok komplike olmayan ve cok kullanilan toollar icin az kod satiriyla cok is yapabilecegimiz bir model ile ui'i binding etmeye yarar
     
-        // Oncelikle table view icin cell olusturmamiz lazim ui 'da
+        // Oncelikle table view icin cell olusturmamiz lazim ui 'da, olusturduktan sonra icerigini duzenleyecegiz
         cryptoViewModel.cryptos
             .observe(on: MainScheduler.asyncInstance)
             .bind(to: tableView.rx.items(cellIdentifier: "CryptoCell", cellType:        CryptoTableViewCell.self)) {row,item,cell in
-                
                 cell.item = item
             }.disposed(by: disposeBag)
-        
         
         // .bind icerisindeki to: ile veri true geldiyse true'ya false geldiyse otomatikman false'a cevirir. Boylelikle ViewModel'den ne gelirse gelsin onu indicatorView icerisinde uygulamaya baslar
         cryptoViewModel
             .loading
             .bind(to: self.indicatorView.rx.isAnimating)
             .disposed(by: disposeBag)
-        
     }
     
     // Cell'i binding ile bagladigimiz icin burayi da silmemiz gerekir
@@ -94,7 +89,6 @@ class ViewController: UIViewController, UITableViewDelegate {
 //        cell.contentConfiguration = content
 //        return cell
 //    }
-//
 //
 //    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return cryptoList.count
