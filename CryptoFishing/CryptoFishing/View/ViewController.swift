@@ -7,14 +7,14 @@
 
 import UIKit
 
-
-
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    //MARK: -Variables
-    var cryptoList : [Crypto]()
     //MARK: -Outlets
     @IBOutlet weak var tableView: UITableView!
+    
+    //MARK: -Variables
+    var cryptoList = [Crypto]()
+    
     //MARK: -Funcs
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,8 +38,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = UITableViewCell()
         var content = cell.defaultContentConfiguration()
         // Modelleri kullanarak currency ve price'larini cektik
-        content.text = cryptoList[IndexPath.row].currency
-        content.secondaryText = cryptoList[IndexPath.row].price
+        content.text = cryptoList[indexPath.row].currency
+        content.secondaryText = cryptoList[indexPath.row].price
         cell.contentConfiguration = content
         return cell
     }
