@@ -25,7 +25,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         WebService().downloadCurrenties(url: url) { result in
             switch result {
             case .success(let cryptos):
-                print(cryptos)
+                self.cryptoList = cryptos
+                
+                // UrlSession kendisi arka planda global thread'da atadigi icin hatanin giderilmesi icin main'e almamiz lazim
+                self.tableView.reloadData()
             case .failure(let failure):
                 print(failure)
             }
