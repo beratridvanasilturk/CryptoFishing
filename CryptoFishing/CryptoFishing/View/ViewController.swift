@@ -20,24 +20,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        
-        // ViewModel'e tasimamiz gerek buyuk projelerde MVVM icin bu gereklidir
-        let url = URL(string: "https://raw.githubusercontent.com/atilsamancioglu/K21-JSONDataSet/master/crypto.json")!
-        WebService().downloadCurrenties(url: url) { result in
-            switch result {
-            case .success(let cryptos):
-                self.cryptoList = cryptos
-                // UrlSession kendisi arka planda global thread'da atadigi icin hatanin giderilmesi icin main'e almamiz lazim
-                // Main thread kullanici arayuzu ile etkilesim yapma anlamina gelir
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-                
-            case .failure(let failure):
-            print(failure)
-            }
-        }
-        
+
     }
     
 
