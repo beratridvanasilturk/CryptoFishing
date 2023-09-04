@@ -14,12 +14,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK: -Variables
     var cryptoList = [Crypto]()
+    let cryptoViewModel = CryptoViewModel()
     
     //MARK: -Funcs
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        
+        cryptoViewModel.requestData()
 
     }
     
