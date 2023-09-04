@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -16,14 +18,43 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var cryptoList = [Crypto]()
     let cryptoViewModel = CryptoViewModel()
     
+    // setupBindings func icerisindeki datalarin cok fazla yer kaplamamasi hafizadan silinmesi icin bir cop kutusu anlaminda kullanilir
+    let disposeBag = DisposeBag()
+    
     //MARK: -Funcs
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
         
+        setupBindings()
         cryptoViewModel.requestData()
 
+    }
+    
+    private func setupBindings() {
+            
+        // Sirasiyla 1: Error icin atamalari gerceklestirecegiz
+        // 2: Main.async'da islemlerin yurutulmesi gerektigini soyledik
+        // 3: Subscribe oldugumuz yerden verileri nereye atamamiz gerekiyorsa orada gosteririz (ui veya consol)
+        // 4: Dispose ile ram'i temizler datalari gereksiz tutmayiz
+        cryptoViewModel
+            .error
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe { errorString in
+                // Bunun icerisinde bir label'a mi yoksa print seklinde mi islemleri yazdirmak istiyorsak yazdirabiliriz
+                print(errorString)
+            }.disposed(by: disposeBag)
+            // dipose bag'e atarak ramda yer tutmamasini saglariz
+        
+        cryptoViewModel
+            .cryptos
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe { ourCryptoList in
+                self.cryptoList = ourCryptoList
+                self.tableView.reloadData()
+            }.disposed(by: disposeBag)
+        
     }
     
 
