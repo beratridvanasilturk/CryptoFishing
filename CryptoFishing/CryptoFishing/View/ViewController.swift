@@ -13,6 +13,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK: -Outlets
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     //MARK: -Variables
     var cryptoList = [Crypto]()
@@ -54,6 +55,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.cryptoList = ourCryptoList
                 self.tableView.reloadData()
             }.disposed(by: disposeBag)
+        
+        // Binding : Cok komplike olmayan ve cok kullanilan toollar icin az kod satiriyla cok is yapabilecegimiz bir model ile ui'i binding etmeye yarar
+        
+        // .bind icerisindeki to: ile veri true geldiyse true'ya false geldiyse otomatikman false'a cevirir. Boylelikle ViewModel'den ne gelirse gelsin onu indicatorView icerisinde uygulamaya baslar
+        cryptoViewModel
+            .loading
+            .bind(to: self.indicatorView.rx.isAnimating)
+            .disposed(by: disposeBag)
         
     }
     
