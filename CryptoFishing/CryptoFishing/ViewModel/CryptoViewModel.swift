@@ -6,6 +6,7 @@
 //
 
 import Foundation
+// RxSwift, ViewModel sinifi icerisinde bir publish yayin yapacagiz ve VC icerisinde view'den ViewModel'e Subscribe olmamizi saglar, boylece ViewModel icerisinde herhangi bir degisiklik olursa VC'da abone oldugumuz verileri gozlemleme imkani saglar
 import RxSwift
 import RxCocoa
 
